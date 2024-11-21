@@ -1,17 +1,18 @@
-def enumerate(iterable, start=0):
-    n = start
-    for elem in iterable:
-        yield n, elem
-        n += 1
+class Enumerate:
 
-def scope_test():
+    def enumerate(iterable, start=0):
+        n = start
+        for elem in iterable:
+            yield n, elem
+            n += 1
+
+class scope_test:
 
     
     def do_local():
         spam = "local spam"
 
     def do_nonlocal():
-        nonlocal spam
         spam = "nonlocal spam"
 
     def do_global():

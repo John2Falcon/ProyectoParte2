@@ -4,7 +4,7 @@ import copy_LOC as LOC
 
 # archivos = ['Archivo_ABC.py','Archivo_XYZ.py','Prueba_A.py','Prueba_B.py','Prueba_C.py',
 #              'Prueba_D.py','Prueba_E.py','Prueba_F.py','Prueba_G.py','Prueba_H.py','Prueba_I.py']
-archivos = ['Prueba_N.py','Prueba_M.py','Prueba_O.py','Prueba_K']
+archivos = ['Prueba_K.py','Prueba_M.py','Prueba_N.py','Prueba_O.py','Prueba_P.py']
 
 
 for archivo in archivos: 

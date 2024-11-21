@@ -16,7 +16,7 @@ class Dog:
         self.tricks.append(trick)
     def f1(self, x, y):
         return min(x, x+y)
-
+ 
 
 # Function defined outside the class
 def f1(self, x, y):
