@@ -1,2 +1,3 @@
-# LinesOfCode
- Programa para contar las líneas lógicas y líneas físicas en un programa, omitiendo comentarios y líneas en blanco. 
+# LinesOfCode 2
+Programa para contar las líneas totales de un programa,
+las líneas de cada clase y el total de métodos que contenga.
