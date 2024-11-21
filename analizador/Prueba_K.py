@@ -19,9 +19,10 @@ class Clase4:
             return "Mayor a 10"
         else:
             return "Menor o igual a 10"
-    def funcion2(obj):
-        for i in range(obj.valor):
-            print(i)
+        
+def funcion2(obj):
+     for i in range(obj.valor):
+        print(i)
 
 
 obj1 = Clase1(5)
