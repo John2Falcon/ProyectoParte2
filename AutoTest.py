@@ -1,4 +1,4 @@
-import copy_LOC as LOC
+import Analizador_De_Codigo as LOC
 
 # si agregan mas pruebas solo agreguen el nombre del archivo
 
