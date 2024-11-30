@@ -115,7 +115,7 @@ class AnalizadorDeCodigo:
 
 
 if __name__ == "__main__":
-    ruta_del_archivo = './analizador/Prueba_Q.py'
+    ruta_del_archivo = 'Lineas Fisicas\Test\Comentarios.py'
     analizador = AnalizadorDeCodigo(ruta_del_archivo)
     analizador.analizar_archivo()
     analizador.informe()
