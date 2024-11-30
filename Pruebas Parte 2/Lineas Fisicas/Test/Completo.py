@@ -9,27 +9,27 @@ from Analizador_De_Codigo import analizador_archivo
 Funcion que suma 
 dos numeros
 """
+class funciones:
+    def suma(a,b):
+        """
+        Esta es una funcion que realiza y retorna una suma
+        Parametros de entrada
+        a (int), b (int)
+        Salida
+        a + b
+        """
 
-def suma(a,b):
-    """
-    Esta es una funcion que realiza y retorna una suma
-    Parametros de entrada
-    a (int), b (int)
-    Salida
-    a + b
-    """
+        return a + b
 
-    return a + b
-
-def resta(a,b):
-    """
-    Esta es una funcion que realiza y retorna una resta
-    Parametros de entrada
-    a (int), b (int)
-    Salida
-    a - b
-    """
-    return a - b
+    def resta(a,b):
+        """
+        Esta es una funcion que realiza y retorna una resta
+        Parametros de entrada
+        a (int), b (int)
+        Salida
+        a - b
+        """
+        return a - b
 
 #comentario
 numeros = 10

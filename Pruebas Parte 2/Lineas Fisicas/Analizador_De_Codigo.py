@@ -21,7 +21,8 @@ class AnalizadorDeCodigo:
         self.lineas_logicas = 0
         self.clases = {}
         self.metodos_fuera_clases = []
-        self.palabras_clave_logicas = ['if', 'for', 'while', 'def', 'class', 'try', 'with']
+        self.palabras_clave_logicas = ['if', 'for', 'while', 
+                                       'def', 'class', 'try', 'with']
 
     def analizar_archivo(self):
         """
@@ -30,6 +31,9 @@ class AnalizadorDeCodigo:
         comentario_bloque = False
         clase_actual = None  # Almacena la clase en la que estamos actualmente
         indentacion_clase = None  # Almacena la indentación de la clase actual
+        self.error = False  # Indicador de error
+        self.error_mensaje = ""  # Mensaje de error
+
 
         try:
             with open(self.ruta_del_archivo, 'r', encoding='utf-8') as archivo:
@@ -75,10 +79,15 @@ class AnalizadorDeCodigo:
                         else:
                             clase_actual = None  # Salimos del contexto de la clase
 
-        except FileNotFoundError:
-            print(f"Error: El archivo {self.ruta_del_archivo} no existe.")
+        except FileNotFoundError as e:
+            self.error = True
+            self.error_mensaje = f"Archivo no encontrado: {e}"
         except IOError as e:
-            print(f"Error al leer el archivo {self.ruta_del_archivo}: {e}")
+            self.error = True
+            self.error_mensaje = f"Error de E/S: {e}"
+        except UnicodeDecodeError as e:
+            self.error = True
+            self.error_mensaje = f"Error de codificación: {e}"
 
     def informe(self):
         """
@@ -106,7 +115,7 @@ class AnalizadorDeCodigo:
 
 
 if __name__ == "__main__":
-    ruta_del_archivo = './analizador/Prueba_A.py'
+    ruta_del_archivo = './analizador/Prueba_Q.py'
     analizador = AnalizadorDeCodigo(ruta_del_archivo)
     analizador.analizar_archivo()
     analizador.informe()

@@ -22,3 +22,6 @@ for i in numeros:
         print("numeros")
 
 """
+
+class MiClase:
+    pass
