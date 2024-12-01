@@ -8,7 +8,6 @@ Cuenta:
 - Métodos fuera de clases.
 """
 import sys
-
 class AnalizadorDeCodigo:
     def __init__(self, ruta_del_archivo):
         """
