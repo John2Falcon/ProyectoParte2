@@ -67,10 +67,11 @@ class PruebaDeCodigo:
             f.write("    def metodo1(self):\n")
             f.write("        pass\n")
             f.write("print('Hola mundo')\n")  # Código fuera de clase
+            f.write("print('Hola mundo')\n")  # Código fuera de clase
 
         analizador = LOC.AnalizadorDeCodigo(ruta)
         analizador.analizar_archivo()
-        assert analizador.lineas_fisicas == 4
+        assert analizador.lineas_fisicas == 5
         assert analizador.lineas_logicas == 2
         assert len(analizador.codigo_fuera_clases) == 1
         assert analizador.codigo_fuera_clases[0] == "print('Hola mundo')"

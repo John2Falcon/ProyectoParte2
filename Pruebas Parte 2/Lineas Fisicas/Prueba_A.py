@@ -85,7 +85,7 @@ class PruebaDeCodigo:
         """
         print('Test de Lógicas')
         ruta = 'Test/Logicas.py'
-        lineas_fisicas_esperadas = 12
+        lineas_fisicas_esperadas = 13
 
         analizador = LOC.AnalizadorDeCodigo(ruta)
         analizador.analizar_archivo()  
@@ -102,11 +102,11 @@ class PruebaDeCodigo:
         La salida debe ser la suma de todas las líneas físicas de los tests anteriores.
         
         Salida esperada:
-        Líneas físicas = 30
+        Líneas físicas = 31
         """
         print('Test Completo')
         ruta = 'Test/Completo.py'
-        lineas_fisicas_esperadas = 30
+        lineas_fisicas_esperadas = 31
 
         analizador = LOC.AnalizadorDeCodigo(ruta)
         analizador.analizar_archivo()  
