@@ -4,7 +4,8 @@ class PruebaDeCodigo:
 
     def __init__(self):
         """
-        Constructor de la clase. Llama a los métodos de prueba relacionados con las líneas físicas.
+        Constructor de la clase. 
+        Llama a los métodos de prueba relacionados con las líneas logicas.
         """
 
         self.test_2_metodos_con_comentarios()
@@ -74,44 +75,40 @@ class PruebaDeCodigo:
         analizador = LOC.AnalizadorDeCodigo(ruta)
         analizador.analizar_archivo()
         print("Test de clase con declaraciones")
-        print(f'Resultado esperado LOC fisicas {11}, resultado obtenido {analizador.lineas_fisicas}')
         print(f'Resultado esperado LOC logicas {1}, resultado obtenido {analizador.lineas_logicas}')
 
-        if 1 == analizador.lineas_logicas and 11 == analizador.lineas_fisicas:
+        if 1 == analizador.lineas_logicas :
             print('--Aprobado--\n')
         else:
             print('--Rechazado--\n')
         
     def test_clase_metodos_codigo(self):
         """
-        test para validar el conteo correcto de lineas dentro de clases,
-        metodos y loc logicas.
+        test para validar el conteo correcto de loc logicas de una clase
+        con metodos y codigo dentro de la misma clase.
         """
         ruta = "./Test/test_clase_metodos_y_codigo.py"
         analizador = LOC.AnalizadorDeCodigo(ruta)
         analizador.analizar_archivo()
-        print("Test de clase con métodos y código en la clase")
+        print("Test de clase L")
         print(f'Resultado esperado LOC logicas {5}, resultado obtenido {analizador.lineas_logicas}')
-        print(f'Resultado esperado {2} metodos, {12} lineas en la clase')
 
-        if analizador.clases["Operaciones:"]["metodos"] == 2 and analizador.clases["Operaciones:"]["lineas"] == 12:
+        if  analizador.lineas_logicas == 5:
             print('--Aprobado--\n')
         else:
             print('--Rechazado--\n')
 
     def test_condicionales_en_clase(self):
         """
-        verificar el correcto conteo de condicionales if 
-        y lineas dentro de la clase.
+        verificar el correcto conteo de loc logicas con condicionales if 
         """
         ruta = "./Test/test_con_If.py"
         analizador = LOC.AnalizadorDeCodigo(ruta)
         analizador.analizar_archivo()
         print("Test de clases con condicionales")
         print(f'Resultado esperado LOC logicas {4}, resultado obtenido {analizador.lineas_logicas}')
-        print(f'Resultado esperado {7} lineas en la clase, resultado obtenido {analizador.clases["condicionales:"]["lineas"]}')
-
-        if  analizador.clases["condicionales:"]["lineas"] == 7 and analizador.lineas_logicas == 4:
+      
+        if  analizador.lineas_logicas == 4:
             print('--Aprobado--\n')
         else:
             print('--Rechazado--\n')
@@ -119,15 +116,16 @@ class PruebaDeCodigo:
     def test_con_manejo_errore(self):
         """
         verifica que se maneje correctamente el conteo con codigo manejador de errores
+        de loc logicas
 
         """
         ruta = "./Test/test_con_Try.py"
         analizador = LOC.AnalizadorDeCodigo(ruta)
         analizador.analizar_archivo()
         print("Test con manejo de errores")
-        print(f'Resultado esperado {4} lineas en la clase, resultado obtenido {analizador.clases["TRY:"]["lineas"]}')
+        print(f'Resultado esperado {2} lineas en la clase, resultado obtenido {analizador.lineas_logicas}')
 
-        if  analizador.clases["TRY:"]["lineas"] == 4:
+        if analizador.lineas_logicas == 2 :
             print('--Aprobado--\n')
         else:
             print('--Rechazado--\n')
@@ -140,9 +138,9 @@ class PruebaDeCodigo:
         analizador = LOC.AnalizadorDeCodigo(ruta)
         analizador.analizar_archivo()
         print("Test con manejo de archivos")
-        print(f'Resultado esperado {5} lineas en la clase, resultado obtenido {analizador.clases["With:"]["lineas"]}')
+        print(f'Resultado esperado {3} lineas en la clase, resultado obtenido {analizador.lineas_logicas}')
 
-        if  analizador.clases["With:"]["lineas"] == 5:
+        if analizador.lineas_logicas == 3 :
             print('--Aprobado--\n')
         else:
             print('--Rechazado--\n')
@@ -169,9 +167,6 @@ class PruebaDeCodigo:
         ruta = "./Test/test_Estructuras_Completas.py"
         analizador = LOC.AnalizadorDeCodigo(ruta)
         analizador.analizar_archivo()
-        analizador.verificar_poo()
-        analizador.informe()
-
         valores_esperados = {
             'IF:': {'lineas': 3, 'metodos': 0},
             'FOR:': {'lineas': 3, 'metodos': 0},

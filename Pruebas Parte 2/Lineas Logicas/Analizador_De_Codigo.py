@@ -125,7 +125,7 @@ class AnalizadorDeCodigo:
         print("-" * 60)
 
 if __name__ == "__main__":
-    ruta_del_archivo = './Test/test_Estructuras_Completas.py'
+    ruta_del_archivo = './Test/test_con_Try.py'
     analizador = AnalizadorDeCodigo(ruta_del_archivo)
     analizador.analizar_archivo()
     analizador.verificar_poo()  # Verifica POO
