@@ -133,6 +133,7 @@ class PruebaDeCodigo:
     def test_con_manejo_de_archivos(self):
         """
         test para verificar el conteo correcto
+        de loc logicas con codigo manejador de archivos
         """
         ruta = "./Test/test_con_with.py"
         analizador = LOC.AnalizadorDeCodigo(ruta)

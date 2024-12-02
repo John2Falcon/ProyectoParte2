@@ -116,7 +116,9 @@ class AnalizadorDeCodigo:
         print("-" * 60)
         print(f"{'Programa:':<10} {self.ruta_del_archivo}\n")
         print(f"{'LOC Físicas:':<20} {self.lineas_fisicas}")
-        print(f"{'LOC Lógicas:':<20} {self.lineas_logicas}\n")
+        print(f"{'LOC Lógicas:':<20} {self.lineas_logicas}")
+        print(f"{'Numero de clases:':<20} {len(self.clases)}\n")
+        
 
         print("Estadísticas por clase:")
         for clase, datos in self.clases.items():
