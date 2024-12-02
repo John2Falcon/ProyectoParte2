@@ -6,116 +6,210 @@ class PruebaDeCodigo:
         """
         Constructor de la clase. Llama a los métodos de prueba relacionados con las líneas físicas.
         """
-        self.testComentarios()
-        self.testDeclaraciones()
-        self.testImportaciones()
-        self.testLogicas()
-        self.testCompleto()
+        #self.test_2_metodos_con_comentarios()
+        #self.test_clase_3_metodos()
+        #self.test_clase_con_ciclos()
+        #self.test_clase_declaraciones()
+        #self.test_clase_metodos_codigo()
+        #self.test_condicionales_en_clase()
+        # print("Prueba con manejo de errores")
+        # self.test_con_manejo_errore()
+        #print("test manejo de archivos")
+        #self.test_con_manejo_de_archivos()
+        # print("test de solo clases")
+        # self.test_solo_clases()
+        print("\ntest de estructuras de control\n")
+        self.test_estructuas_completas()
 
-    def testComentarios(self):
+    def test_2_metodos_con_comentarios(self):
         """
-        Este test evalúa un archivo con comentarios y líneas vacías.
-
-        Salida esperada:
-        Líneas físicas = 0
+        test para comprobar el correcto conteo de LOC logicas con dos metodos con comentarios
         """
-        print('Test Comentarios')
-        ruta = 'Test/Comentarios.py'
-        lineas_fisicas_esperadas = 0
-
+        ruta = "./Test/test_2_metodos_con_comentarios.py"
         analizador = LOC.AnalizadorDeCodigo(ruta)
         analizador.analizar_archivo()
+        print(f'\nResultado esperado {3}, resultado obtenido {analizador.lineas_logicas}')
 
-        print(f'Resultado esperado {lineas_fisicas_esperadas}, resultado obtenido {analizador.lineas_fisicas}')
-
-        if lineas_fisicas_esperadas == analizador.lineas_fisicas:
+        if 3 == analizador.lineas_logicas:
             print('--Aprobado--\n')
         else:
             print('--Rechazado--\n')
 
-    def testDeclaraciones(self):
+    def test_clase_3_metodos(self):
         """
-        Este test evalúa un archivo con declaraciones de una sola línea y múltiples.
-
-        Salida esperada:
-        Líneas físicas = 14
+        test para validar el correcto conteo de LOC logicas de solo una clase
+        con 3 metodos
         """
-        print('Test Declaraciones')
-        ruta = 'Test/Declaraciones.py'
-        lineas_fisicas_esperadas = 14
-
+        ruta = "./Test/test_clase_3metodos.py"
         analizador = LOC.AnalizadorDeCodigo(ruta)
         analizador.analizar_archivo()
+        print(f'Resultado esperado {4}, resultado obtenido {analizador.lineas_logicas}')
 
-        print(f'Resultado esperado {lineas_fisicas_esperadas}, resultado obtenido {analizador.lineas_fisicas}')
+        if 4 == analizador.lineas_logicas:
+            print('--Aprobado--\n')
+        else:
+            print('--Rechazado--\n')
+    
+    def test_clase_con_ciclos(self):
+        """
+        test para validar el correcto conteo de Loc logicas con ciclos
 
-        if lineas_fisicas_esperadas == analizador.lineas_fisicas:
+        """
+        ruta = "./Test/test_clase_con_ciclos.py"
+        analizador = LOC.AnalizadorDeCodigo(ruta)
+        analizador.analizar_archivo()
+        print(f'Resultado esperado {3}, resultado obtenido {analizador.lineas_logicas}')
+
+        if 3 == analizador.lineas_logicas:
+            print('--Aprobado--\n')
+        else:
+            print('--Rechazado--\n')
+    
+    def test_clase_declaraciones(self):
+        """
+        test para contar lineas dentro de una clase sin metodos.
+        """
+        ruta = "./Test/test_clase_declaraciones.py"
+        analizador = LOC.AnalizadorDeCodigo(ruta)
+        analizador.analizar_archivo()
+        print(f'Resultado esperado LOC fisicas {11}, resultado obtenido {analizador.lineas_fisicas}')
+        print(f'Resultado esperado LOC logicas {1}, resultado obtenido {analizador.lineas_logicas}')
+
+        if 1 == analizador.lineas_logicas and 11 == analizador.lineas_fisicas:
+            print('--Aprobado--\n')
+        else:
+            print('--Rechazado--\n')
+        
+    def test_clase_metodos_codigo(self):
+        """
+        test para validar el conteo correcto de lineas dentro de clases,
+        metodos y loc logicas.
+        """
+        ruta = "./Test/test_clase_metodos_y_codigo.py"
+        analizador = LOC.AnalizadorDeCodigo(ruta)
+        analizador.analizar_archivo()
+        print(f'Resultado esperado LOC logicas {5}, resultado obtenido {analizador.lineas_logicas}')
+        print(f'Resultado esperado {2} metodos, {12} lineas en la clase')
+
+        if analizador.clases["Operaciones:"]["metodos"] == 2 and analizador.clases["Operaciones:"]["lineas"] == 12:
             print('--Aprobado--\n')
         else:
             print('--Rechazado--\n')
 
-    def testImportaciones(self):
+    def test_condicionales_en_clase(self):
         """
-        Este test evalúa un archivo con importaciones de librerías.
-
-        Salida esperada:
-        Líneas físicas = 4
+        verificar el correcto conteo de condicionales if 
+        y lineas dentro de la clase.
         """
-        print('Test Importaciones')
-        ruta = 'Test/Imports.py'
-        lineas_fisicas_esperadas = 4
-
+        ruta = "./Test/test_con_If.py"
         analizador = LOC.AnalizadorDeCodigo(ruta)
         analizador.analizar_archivo()
+        print(f'Resultado esperado LOC logicas {4}, resultado obtenido {analizador.lineas_logicas}')
+        print(f'Resultado esperado {7} lineas en la clase, resultado obtenido {analizador.clases["condicionales:"]["lineas"]}')
 
-        print(f'Resultado esperado {lineas_fisicas_esperadas}, resultado obtenido {analizador.lineas_fisicas}')
+        if  analizador.clases["condicionales:"]["lineas"] == 7 and analizador.lineas_logicas == 4:
+            print('--Aprobado--\n')
+        else:
+            print('--Rechazado--\n')
+    
+    def test_con_manejo_errore(self):
+        """
+        verifica que se maneje correctamente el conteo con codigo manejador de errores
 
-        if lineas_fisicas_esperadas == analizador.lineas_fisicas:
+        """
+        ruta = "./Test/test_con_Try.py"
+        analizador = LOC.AnalizadorDeCodigo(ruta)
+        analizador.analizar_archivo()
+        print(f'Resultado esperado {4} lineas en la clase, resultado obtenido {analizador.clases["TRY:"]["lineas"]}')
+
+        if  analizador.clases["TRY:"]["lineas"] == 4:
+            print('--Aprobado--\n')
+        else:
+            print('--Rechazado--\n')
+        
+    def test_con_manejo_de_archivos(self):
+        """
+        test para verificar el conteo correcto
+        """
+        ruta = "./Test/test_con_with.py"
+        analizador = LOC.AnalizadorDeCodigo(ruta)
+        analizador.analizar_archivo()
+        print(f'Resultado esperado {5} lineas en la clase, resultado obtenido {analizador.clases["With:"]["lineas"]}')
+
+        if  analizador.clases["With:"]["lineas"] == 5:
             print('--Aprobado--\n')
         else:
             print('--Rechazado--\n')
 
-    def testLogicas(self):
+    def test_solo_clases(self):
         """
-        Este test evalúa un archivo con estructuras lógicas y declaraciones.
-
-        Salida esperada:
-        Líneas físicas = 12
+        test para verificar que se cuentan las clases.
         """
-        print('Test Logicas')
-        ruta = 'Test/Logicas.py'
-        lineas_fisicas_esperadas = 12
-
+        ruta = "./Test/test_Solo_classes.py"
         analizador = LOC.AnalizadorDeCodigo(ruta)
         analizador.analizar_archivo()
+        
+        print(f'Resultado esperado 2 clases MiClase , resultado obtenido {len(analizador.clases)}')
 
-        print(f'Resultado esperado {lineas_fisicas_esperadas}, resultado obtenido {analizador.lineas_fisicas}')
-
-        if lineas_fisicas_esperadas == analizador.lineas_fisicas:
+        if  len(analizador.clases) == 2:
             print('--Aprobado--\n')
         else:
             print('--Rechazado--\n')
-
-    def testCompleto(self):
+        
+    def test_estructuas_completas(self):
+        """ 
+        test para validar todo lo probado anterior.
         """
-        Este test evalúa un archivo que contiene todos los casos anteriores, sumando todas las líneas físicas.
-
-        Salida esperada:
-        Líneas físicas = 30
-        """
-        print('Test Completo')
-        ruta = 'Test/Completo.py'
-        lineas_fisicas_esperadas = 30
-
+        ruta = "./Test/test_Estructuras_Completas.py"
         analizador = LOC.AnalizadorDeCodigo(ruta)
         analizador.analizar_archivo()
+        analizador.verificar_poo()
+        analizador.informe()
 
-        print(f'Resultado esperado {lineas_fisicas_esperadas}, resultado obtenido {analizador.lineas_fisicas}')
+        valores_esperados = {
+            'IF:': {'lineas': 3, 'metodos': 0},
+            'FOR:': {'lineas': 3, 'metodos': 0},
+            'While:': {'lineas': 3, 'metodos': 0},
+            'DEF:': {'lineas': 2, 'metodos': 1},
+            'Persona:': {'lineas': 4, 'metodos': 0},
+            'TRY:': {'lineas': 4, 'metodos': 0},
+            'WITH:': {'lineas': 2, 'metodos': 0}
+        }
+        print(f"loc fisicas esperadas: 28, resultado {analizador.lineas_fisicas}")
+        print(f"loc logicas esperadas: 13, resultado {analizador.lineas_logicas}")
+        print(f"loc logicas esperadas: 7, resultado {len(analizador.clases)}\n")
 
-        if lineas_fisicas_esperadas == analizador.lineas_fisicas:
-            print('--Aprobado--\n')
-        else:
-            print('--Rechazado--\n')
+        # Validar las clases
+        for clase, detalles in analizador.clases.items():
+            lineas_obtenidas = detalles['lineas']
+            metodos_obtenidos = detalles['metodos']
+            
+            # Obtener valores esperados
+            lineas_esperadas = valores_esperados.get(clase, {}).get('lineas', -1)
+            metodos_esperados = valores_esperados.get(clase, {}).get('metodos', -1)
+            
+            # Validación
+            if lineas_obtenidas == lineas_esperadas and metodos_obtenidos == metodos_esperados:
+                print(f"Clase {clase}: Validación exitosa.")
+            else:
+                print(f"Clase {clase}: Error. Esperado {lineas_esperadas} líneas y {metodos_esperados} métodos, "
+                    f"pero se obtuvo {lineas_obtenidas} líneas y {metodos_obtenidos} métodos.")
+                
+
+
+
+
+
+
+
+        
+
+
+
+
+
+    
 
 # Ejecutar las pruebas
 PruebaDeCodigo()
+
