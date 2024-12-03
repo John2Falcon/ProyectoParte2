@@ -1,4 +1,4 @@
-import Analizador_De_Codigo as LOC
+import Analizador_De_Clases_Y_metodos as LOC
 
 class PruebaDeCodigo:
 
@@ -25,10 +25,10 @@ class PruebaDeCodigo:
         con una clase con 2 comentarios
         """
         ruta = "./Test/test_2_metodos_con_comentarios.py"
-        analizador = LOC.AnalizadorDeCodigo(ruta)
-        analizador.analizar_archivo()
+        analizador = LOC.AnalizadorEstructural(ruta)
+        analizador.obtener_resultados()
         lineas_clase = analizador.clases["operaciones:"]["lineas"]
-        print("test de clase con 2 metodos con comentarios")
+        print("\ntest de clase con 2 metodos con comentarios")
         print(f'\nResultado esperado {5}, resultado obtenido {analizador.lineas_fisicas}')
         print(f"Resultado esperado lineas dentro de la clase : {4}, resultado obtenido: {lineas_clase}")
 
@@ -43,10 +43,10 @@ class PruebaDeCodigo:
         con 3 metodos
         """
         ruta = "./Test/test_clase_3metodos.py"
-        analizador = LOC.AnalizadorDeCodigo(ruta)
-        analizador.analizar_archivo()
+        analizador = LOC.AnalizadorEstructural(ruta)
+        analizador.obtener_resultados()
         lineas_clase = analizador.clases["clase:"]["lineas"]
-        print("test clase con solo 3 metodos")
+        print("\ntest clase con solo 3 metodos")
         print(f'Resultado esperado {7}, resultado obtenido {analizador.lineas_fisicas}')
         print(f"Resultado esperado lineas dentro de la clase : {6}, resultado obtenido: {lineas_clase}")
 
@@ -61,11 +61,11 @@ class PruebaDeCodigo:
          una clase que posee  ciclos
         """
         ruta = "./Test/test_clase_con_ciclos.py"
-        analizador = LOC.AnalizadorDeCodigo(ruta)
-        analizador.analizar_archivo()
+        analizador = LOC.AnalizadorEstructural(ruta)
+        analizador.obtener_resultados()
         lineas_clase = analizador.clases["CICLOS:"]["lineas"]
 
-        print("test de clase con 2 metodos con comentarios")
+        print("\ntest de clase con ciclos")
         print(f'\nResultado esperado {7}, resultado obtenido {analizador.lineas_fisicas}')
         print(f"Resultado esperado lineas dentro de la clase : {6}, resultado obtenido: {lineas_clase}")
 
@@ -80,11 +80,11 @@ class PruebaDeCodigo:
         test para contar lineas fisicas dentro de una clase sin metodos.
         """
         ruta = "./Test/test_clase_declaraciones.py"
-        analizador = LOC.AnalizadorDeCodigo(ruta)
-        analizador.analizar_archivo()
+        analizador = LOC.AnalizadorEstructural(ruta)
+        analizador.obtener_resultados()
         lineas_clase = analizador.clases["declaraciones:"]["lineas"]
 
-        print("Test de clase con declaraciones")
+        print("\nTest de clase con declaraciones")
         print(f'Resultado esperado LOC fisicas {11}, resultado obtenido {analizador.lineas_fisicas}')
         print(f"Resultado esperado lineas dentro de la clase : {10}, resultado obtenido: {lineas_clase}")
 
@@ -99,11 +99,11 @@ class PruebaDeCodigo:
         con metodos y codigo dentro de la misma clase.
         """
         ruta = "./Test/test_clase_metodos_y_codigo.py"
-        analizador = LOC.AnalizadorDeCodigo(ruta)
-        analizador.analizar_archivo()
+        analizador = LOC.AnalizadorEstructural(ruta)
+        analizador.obtener_resultados()
         lineas_clase = analizador.clases["Operaciones:"]["lineas"]
         
-        print("Test de clase con métodos y código")
+        print("\nTest de clase con métodos y código")
         print(f'Resultado esperado LOC fisicas {13}, resultado obtenido {analizador.lineas_fisicas}')
         print(f"Resultado esperado lineas dentro de la clase : {12}, resultado obtenido: {lineas_clase}")
 
@@ -118,11 +118,11 @@ class PruebaDeCodigo:
         en una clase
         """
         ruta = "./Test/test_con_If.py"
-        analizador = LOC.AnalizadorDeCodigo(ruta)
-        analizador.analizar_archivo()
+        analizador = LOC.AnalizadorEstructural(ruta)
+        analizador.obtener_resultados()
         lineas_clase = analizador.clases["condicionales:"]["lineas"]
 
-        print("Test de clases con condicionales")
+        print("\nTest de clases con condicionales")
         print(f'Resultado esperado LOC fisicas {8}, resultado obtenido {analizador.lineas_fisicas}')
         print(f"Resultado esperado lineas dentro de la clase : {7}, resultado obtenido: {lineas_clase}")
 
@@ -137,11 +137,11 @@ class PruebaDeCodigo:
         en una clase
         """
         ruta = "./Test/test_con_Try.py"
-        analizador = LOC.AnalizadorDeCodigo(ruta)
-        analizador.analizar_archivo()
+        analizador = LOC.AnalizadorEstructural(ruta)
+        analizador.obtener_resultados()
         lineas_clase = analizador.clases["TRY:"]["lineas"]
 
-        print("Test con manejo de errores")
+        print("\nTest con manejo de errores")
         print(f'Resultado esperado {5} lineas fisicas , resultado obtenido {analizador.lineas_fisicas}')
         print(f"Resultado esperado lineas dentro de la clase : {4}, resultado obtenido: {lineas_clase}")
 
@@ -156,11 +156,11 @@ class PruebaDeCodigo:
         que contiene codigo de manejo de archivos
         """
         ruta = "./Test/test_con_with.py"
-        analizador = LOC.AnalizadorDeCodigo(ruta)
-        analizador.analizar_archivo()
+        analizador = LOC.AnalizadorEstructural(ruta)
+        analizador.obtener_resultados()
         lineas_clase = analizador.clases["With:"]["lineas"]
 
-        print("Test con manejo de archivos")
+        print("\nTest con manejo de archivos")
         print(f'Resultado esperado {6} lineas fisicas en la clase, resultado obtenido {analizador.lineas_fisicas}')
         print(f"Resultado esperado lineas dentro de la clase : {5}, resultado obtenido: {lineas_clase}")
         if analizador.lineas_fisicas == 6 and lineas_clase == 5 :
@@ -173,10 +173,10 @@ class PruebaDeCodigo:
         test para verificar que se cuentan las clases y las lineas fisicas totales.
         """
         ruta = "./Test/test_Solo_classes.py"
-        analizador = LOC.AnalizadorDeCodigo(ruta)
-        analizador.analizar_archivo()
+        analizador = LOC.AnalizadorEstructural(ruta)
+        analizador.obtener_resultados()
 
-        print("Test de solo clases sin codigo extra")
+        print("\nTest de solo clases sin codigo extra")
         print(f'Resultado esperado {4} lineas fisicas en la clase, resultado obtenido {analizador.lineas_fisicas}')
         print(f'Resultado esperado 2 clases , resultado obtenido {len(analizador.clases)}')
         
@@ -190,8 +190,8 @@ class PruebaDeCodigo:
         test para validar todo lo probado anterior.
         """
         ruta = "./Test/test_Estructuras_Completas.py"
-        analizador = LOC.AnalizadorDeCodigo(ruta)
-        analizador.analizar_archivo()
+        analizador = LOC.AnalizadorEstructural(ruta)
+        analizador.obtener_resultados()
         valores_esperados = {
             'IF:': {'lineas': 3, 'metodos': 0},
             'FOR:': {'lineas': 3, 'metodos': 0},
@@ -202,7 +202,7 @@ class PruebaDeCodigo:
             'WITH:': {'lineas': 2, 'metodos': 0}
         }
 
-        print("Test con todo lo anterior")
+        print("\nTest con todo lo anterior")
         print(f"loc fisicas esperadas: 28, resultado {analizador.lineas_fisicas}")
         print(f"loc logicas esperadas: 13, resultado {analizador.lineas_logicas}")
         print(f"clases esperadas: 7, resultado {len(analizador.clases)}\n")
@@ -223,20 +223,6 @@ class PruebaDeCodigo:
                 print(f"Clase {clase}: Error. Esperado {lineas_esperadas} líneas y {metodos_esperados} métodos, "
                     f"pero se obtuvo {lineas_obtenidas} líneas y {metodos_obtenidos} métodos.")
                 
-
-
-
-
-
-
-
-        
-
-
-
-
-
-    
 
 # Ejecutar las pruebas
 PruebaDeCodigo()

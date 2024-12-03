@@ -1,48 +1,86 @@
 """
-Programa: Analizador de Líneas de Código
+Programa: Analizador de Clases y Métodos
 Autor: Equipo 6
-Fecha: 10 de noviembre del 2024
+Fecha: 20 de diciembre del 2024
 Descripción:
     Este programa solicita al usuario la ruta de una carpeta, busca todos los archivos Python
-    (.py) en dicha carpeta, y analiza cada archivo para contar las líneas físicas y lógicas
-    de código. Proporciona un informe con el conteo de las líneas de código físicas y lógicas.
+    (.py) en dicha carpeta y analiza cada archivo para contar las clases, métodos, líneas físicas
+    y lógicas, proporcionando un informe detallado.
 """
 
-import Analizador_De_Codigo as LOC
+import os
+from Analizador_De_Clases_Y_metodos import AnalizadorEstructural
 
-def main():
-    while True:
-        print("\nBienvenido al analizador de códigos.\n")
-        print("Por favor, asegúrate de haber anexado tus archivos a la carpeta "
-              "de nombre 'analizador' para poder procesarlos.")
+class app:
+    """
+    Clase principal que gestiona la interacción con el usuario y la ejecución del análisis
+    de archivos Python dentro de una carpeta específica.
+    """
+
+    def __init__(self, carpeta='./analizador'):
+        """
+        Inicializa la clase con la ruta de la carpeta donde se buscarán los archivos a analizar.
+        """
+        self.carpeta = carpeta
+
+    def mostrar_bienvenida(self):
+        """
+        Muestra el mensaje de bienvenida al usuario.
+        """
+        print("\nBienvenido al Analizador de Clases y Métodos.\n")
+        print("Por favor, asegúrate de que los archivos a analizar se encuentren en la carpeta 'analizador'.")
         print("Escribe los nombres de los archivos a analizar, separados por comas.")
-        print("Ejemplo: Archivo_ABC.py, Archivo_XYZ.py")
+        print("Ejemplo: Archivo_ABC.py, Archivo_XYZ.py\n")
 
-        # Leer la entrada del usuario
-        entrada = input("\nIngresa el nombre del archivo: ")
-
-        # Convertir la entrada en una lista de nombres de archivos
+    def obtener_archivos(self):
+        """
+        Solicita al usuario los nombres de los archivos a analizar y los devuelve como una lista.
+        """
+        entrada = input("Ingresa el nombre de los archivos a analizar: ")
         archivos = [archivo.strip() for archivo in entrada.split(',')]
+        return archivos
 
-        # Analizar cada archivo
-        for archivo in archivos:
-            file_path = './analizador/' + archivo
+    def validar_archivo(self, file_path):
+        """
+        Verifica si el archivo existe y si es un archivo Python (.py).
+        """
+        return os.path.isfile(file_path) and file_path.endswith('.py')
+
+    def llamar_analizador(self, archivo):
+        """
+        Realiza el análisis de un archivo Python utilizando la clase `AnalizadorEstructural`.
+        """
+        file_path = os.path.join(self.carpeta, archivo)
+        if self.validar_archivo(file_path):
             try:
-                analyzer = LOC.AnalizadorDeCodigo(file_path)
-                analyzer.analizar_archivo()
-                analyzer.informe()
+                print(f"\nAnalizando archivo: {archivo}")
+                print("-" * 60)
+                analizador = AnalizadorEstructural(file_path)
+                analizador.informe()
             except FileNotFoundError:
-                print(f"Error: El archivo {archivo} no se encontró en la carpeta ./pruebas/")
+                print(f"Error: No se encontró el archivo '{archivo}'.")
             except Exception as e:
-                print(f"Error al procesar el archivo {archivo}: {e}")
+                print(f"Error al procesar el archivo '{archivo}': {e}")
+        else:
+            print(f"Error: El archivo '{archivo}' no es válido o no existe.")
 
-        print("\nAnálisis completado.")
+    def ejecutar(self):
+        """
+        Ejecuta el flujo principal del programa.
+        """
+        while True:
+            self.mostrar_bienvenida()
+            archivos = self.obtener_archivos()
 
-        # Preguntar si desea realizar otro análisis o salir
-        continuar = input("¿Deseas analizar más archivos? (s/n): ").strip().lower()
-        if continuar != 's':
-            print("Gracias por usar el analizador de códigos. ¡Hasta luego!")
-            break
+            for archivo in archivos:
+                self.llamar_analizador(archivo)
+
+            continuar = input("\n¿Deseas analizar más archivos? (s/n): ").strip().lower()
+            if continuar != 's':
+                print("\nGracias por usar el Analizador de Código. ¡Hasta luego!")
+                break
+
 
 if __name__ == "__main__":
-    main()
+    analizador = app()
+    analizador.ejecutar()

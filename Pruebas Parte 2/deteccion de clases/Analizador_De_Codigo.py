@@ -1,27 +1,48 @@
-import sys
+"""
+Analizador de líneas de código en Python.
+
+Este módulo analiza un archivo fuente en Python y cuenta:
+- Líneas físicas: excluye comentarios y líneas en blanco.
+- Líneas lógicas: bloques lógicos como clases, funciones, etc.
+"""
+
 class AnalizadorDeCodigo:
+    """
+    Clase para analizar archivos Python y contar líneas físicas y lógicas.
+
+    Attributes:
+        ruta_del_archivo (str): Ruta del archivo a analizar.
+        lineas_fisicas (int): Contador de líneas físicas.
+        lineas_logicas (int): Contador de líneas lógicas.
+    """
+
     def __init__(self, ruta_del_archivo):
         """
         Inicializa el analizador con la ruta del archivo.
+
+        Args:
+            ruta_del_archivo (str): Ruta del archivo a analizar.
         """
         self.ruta_del_archivo = ruta_del_archivo
         self.lineas_fisicas = 0
         self.lineas_logicas = 0
-        self.clases = {}
-        self.metodos_fuera_clases = []
-        self.codigo_fuera_clases = []  # Almacena líneas de código fuera de clases
         self.palabras_clave_logicas = ['if', 'for', 'while', 
                                        'def', 'class', 'try', 'with']
+        self.error = False  # Indicador de error
+        self.error_mensaje = ""  # Mensaje de error
 
     def analizar_archivo(self):
         """
-        Analiza un archivo fuente para contar líneas físicas, clases y métodos.
-        Verifica si el script sigue estrictamente el paradigma POO.
+        Analiza un archivo fuente para contar líneas físicas y lógicas.
+
+        Procesa línea por línea el archivo especificado, ignorando comentarios
+        y líneas en blanco. Los comentarios en bloque también se excluyen.
+
+        Excepciones:
+            FileNotFoundError: Si el archivo no existe.
+            IOError: Si hay un problema al leer el archivo.
         """
         comentario_bloque = False
-        clase_actual = None  # Almacena la clase en la que estamos actualmente
-        indentacion_clase = None  # Almacena la indentación de la clase actual
-
         try:
             with open(self.ruta_del_archivo, 'r', encoding='utf-8') as archivo:
                 for linea in archivo:
@@ -34,89 +55,44 @@ class AnalizadorDeCodigo:
                             continue
                         comentario_bloque = not comentario_bloque
                         continue
-
+                    # Manejo de líneas en blanco y comentarios normales
                     if comentario_bloque or not linea_sin_espacios \
                         or linea_sin_espacios.startswith('#'):
                         continue
 
                     self.lineas_fisicas += 1
+
                     primera_palabra = linea_sin_espacios.split()[0]
                     if primera_palabra.rstrip(':') in self.palabras_clave_logicas:
                         self.lineas_logicas += 1
 
-                    # Detección de clases
-                    if primera_palabra == 'class':
-                        clase_actual = linea_sin_espacios.split()[1].split('(')[0]
-                        self.clases[clase_actual] = {'lineas': 0, 'metodos': 0}
-                        indentacion_clase = len(linea) - len(linea.lstrip())
-                        continue
-
-                    # Detección de métodos
-                    if primera_palabra == 'def':
-                        metodo = linea_sin_espacios.split()[1].split('(')[0]
-                        indentacion_metodo = len(linea) - len(linea.lstrip())
-
-                        if clase_actual and indentacion_metodo > indentacion_clase:
-                            self.clases[clase_actual]['metodos'] += 1
-                        else:
-                            self.metodos_fuera_clases.append(metodo)
-
-                    # Detección de código fuera de clases
-                    if not clase_actual:
-                        if primera_palabra not in ['import', 'from', 'class', 'def']:
-                            self.codigo_fuera_clases.append(linea_sin_espacios)
-
-                    # Sumar líneas a la clase actual si existe
-                    if clase_actual:
-                        indentacion_actual = len(linea) - len(linea.lstrip())
-                        if indentacion_actual > indentacion_clase:
-                            self.clases[clase_actual]['lineas'] += 1
-                        else:
-                            clase_actual = None  # Salimos del contexto de la clase
-
         except FileNotFoundError as e:
-            print(f"Archivo no encontrado: {e}")
-            sys.exit(1)
+            self.error = True
+            self.error_mensaje = f"Archivo no encontrado: {e}"
         except IOError as e:
-            print(f"Error de E/S: {e}")
-            sys.exit(1)
+            self.error = True
+            self.error_mensaje = f"Error de E/S: {e}"
         except UnicodeDecodeError as e:
-            print(f"Error de codificación: {e}")
-            sys.exit(1)
-
-    def verificar_poo(self):
-        """
-        Verifica si el script sigue estrictamente el paradigma POO.
-        Si no lo cumple, muestra un mensaje y sale del programa.
-        """
-        if self.metodos_fuera_clases or self.codigo_fuera_clases:
-            print("\nERROR: El archivo **NO** sigue estrictamente el paradigma POO.")
-            print("Causas detectadas:")
-            if self.metodos_fuera_clases:
-                print(f"  - Métodos fuera de clases: {', '.join(self.metodos_fuera_clases)}")
-            if self.codigo_fuera_clases:
-                print("  - Código ejecutable fuera de clases:")
-                for linea in self.codigo_fuera_clases:
-                    print(f"    {linea}")
-            sys.exit(1)
+            self.error = True
+            self.error_mensaje = f"Error de codificación: {e}"
 
     def informe(self):
         """
-        Muestra un informe del análisis y verifica si es POO.
-        """
-        print("-" * 60)
-        print(f"{'Programa:':<10} {self.ruta_del_archivo}\n")
-        print(f"{'LOC Físicas:':<20} {self.lineas_fisicas}")
-        print(f"{'LOC Lógicas:':<20} {self.lineas_logicas}\n")
+        Retorna un resumen tabular del análisis del archivo.
 
-        print("Estadísticas por clase:")
-        for clase, datos in self.clases.items():
-            print(f"  Clase '{clase}': {datos['lineas']} líneas, {datos['metodos']} métodos")
-        print("-" * 60)
+        Retorna:
+            El conteo de las líneas de código físicas y lógicas.
+        """
+        if not self.error:
+            print("-" * 60)
+            print(f"{'Programa':<30} | {'LOC Lógicas':<11} | {'LOC Físicas':<11}")
+            print(f"{self.ruta_del_archivo:<30} | {self.lineas_logicas:<11} | {self.lineas_fisicas:<11}")
+        else:
+            print(f"El análisis no pudo completarse. Motivo: {self.error_mensaje}")
+
 
 if __name__ == "__main__":
-    ruta_del_archivo = './Test/test_archivo_integral.py'
+    ruta_del_archivo = './pruebas/Prueba_M.py'
     analizador = AnalizadorDeCodigo(ruta_del_archivo)
     analizador.analizar_archivo()
-    analizador.verificar_poo()  # Verifica POO
-    analizador.informe()        # Muestra el informe si cumple con POO
+    analizador.informe()
