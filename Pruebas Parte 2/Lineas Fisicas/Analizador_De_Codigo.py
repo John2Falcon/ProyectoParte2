@@ -10,7 +10,7 @@ class AnalizadorDeCodigo:
     """
     Clase para analizar archivos Python y contar líneas físicas y lógicas.
 
-    Attributos:
+    Attributes:
         ruta_del_archivo (str): Ruta del archivo a analizar.
         lineas_fisicas (int): Contador de líneas físicas.
         lineas_logicas (int): Contador de líneas lógicas.

@@ -82,6 +82,21 @@ class AnalizadorEstructural(AnalizadorDeCodigo):
         except UnicodeDecodeError as e:
             print(f"Error de codificación: {e}")
             sys.exit(1)
+    
+    def obtener_resultados(self):
+        """
+        Retorna los resultados del análisis en un diccionario.
+        """
+        super().analizar_archivo()
+        self.analizar_clases_y_metodos()
+        self.verificar_poo()
+
+        return {
+            "clases": self.clases,
+            "lineas_fisicas": self.lineas_fisicas,
+            "lineas_logicas": self.lineas_logicas,
+            "total_clases": len(self.clases),
+        }
 
     def verificar_poo(self):
         """
@@ -103,18 +118,16 @@ class AnalizadorEstructural(AnalizadorDeCodigo):
         """
         Muestra un informe del análisis y verifica si es POO.
         """
-        super().analizar_archivo()  # Llama a la función para contar líneas físicas y lógicas
-        self.analizar_clases_y_metodos()
-        self.verificar_poo()
+        resultados = self.obtener_resultados()
         print("-" * 60)
         print(f"{'Clases ':<30} | {'Métodos':<11} | {'Líneas':<11}")
         print("-" * 60)
-        for clase, datos in self.clases.items():
+        for clase, datos in resultados["clases"].items():
             print(f"{clase:<30} | {datos['metodos']:<11} | {datos['lineas']:<11}")
         print("-" * 60)
-        print(f"{'Total líneas físicas':<30} | {self.lineas_fisicas:<11}")
-        print(f"{'Total líneas lógicas':<30} | {self.lineas_logicas:<11}")
-        print(f"{'Total de clases':<30} | {len(self.clases):<11}")
+        print(f"{'Total líneas físicas':<30} | {resultados['lineas_fisicas']:<11}")
+        print(f"{'Total líneas lógicas':<30} | {resultados['lineas_logicas']:<11}")
+        print(f"{'Total de clases':<30} | {resultados['total_clases']:<11}")
 
 
 if __name__ == "__main__":
