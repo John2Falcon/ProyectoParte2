@@ -75,7 +75,7 @@ class app:
             for archivo in archivos:
                 self.llamar_analizador(archivo)
 
-            continuar = input("\n¿Deseas analizar más archivos? (si/no): ").strip().lower()
+            continuar = input("\n¿Deseas analizar más archivos? (introducir si sino pulse cualquier otra tecla para salir): ").strip().lower()
             if continuar != 'si':
                 print("\nGracias por usar el Analizador de Código. ¡Hasta luego!")
                 break
