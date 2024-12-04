@@ -6,11 +6,11 @@ class PruebaDeCodigo:
         """
         Constructor que ejecuta todos los tests.
         """
-        #self.test_detectar_clases_y_metodos()
-        #self.test_codigo_fuera_de_clases()
-        #self.test_verificar_poo()
+        self.test_detectar_clases_y_metodos()
+        self.test_codigo_fuera_de_clases()
+        self.test_verificar_poo()
         self.test_archivo_inexistente()
-        #self.test_analisis_integral()
+        self.test_analisis_integral()
 
     def test_detectar_clases_y_metodos(self):
         ruta = "./Test/test_archivo_clases.py"
@@ -53,9 +53,9 @@ class PruebaDeCodigo:
     
     def test_archivo_inexistente(self):
         ruta = "./Test/archivo_no_existente.py"
-        analizador = LOC.AnalizadorDeCodigo(ruta)
+        analizador = LOC.AnalizadorEstructural(ruta)
         try:
-            analizador.analizar_archivo()
+            analizador.obtener_resultados()
             assert False  # Si no lanza excepción, hay error
         except SystemExit as e:
             assert e.code == 1  # Código de error esperado
@@ -73,7 +73,8 @@ class PruebaDeCodigo:
         analizador.obtener_resultados()
         assert analizador.lineas_fisicas == 5
         assert analizador.lineas_logicas == 2
-
+        assert len(analizador.codigo_fuera_clases) == 1
+        assert analizador.codigo_fuera_clases[0] == "print('Hola mundo')"
 
 # Ejecutamos las pruebas
 if __name__ == "__main__":
