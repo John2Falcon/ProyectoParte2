@@ -1,13 +1,3 @@
-"""
-Programa: Analizador de Clases y Métodos
-Autor: Equipo 6
-Fecha: 20 de diciembre del 2024
-Descripción:
-    Este programa solicita al usuario la ruta de una carpeta, busca todos los archivos Python
-    (.py) en dicha carpeta y analiza cada archivo para contar las clases, métodos, líneas físicas
-    y lógicas, proporcionando un informe detallado.
-"""
-
 import os
 from Analizador_De_Clases_Y_metodos import AnalizadorEstructural
 
@@ -20,8 +10,12 @@ class app:
     def __init__(self, carpeta='./analizador'):
         """
         Inicializa la clase con la ruta de la carpeta donde se buscarán los archivos a analizar.
+        Si la carpeta no existe, se crea automáticamente.
         """
         self.carpeta = carpeta
+        # Crear la carpeta si no existe
+        if not os.path.exists(self.carpeta):
+            os.mkdir(self.carpeta)
 
     def mostrar_bienvenida(self):
         """
