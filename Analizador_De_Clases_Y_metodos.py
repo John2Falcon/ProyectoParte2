@@ -1,3 +1,30 @@
+"""
+Módulo: Analizador de clases y métodos
+
+Este módulo proporciona una herramienta para analizar un archivo fuente Python
+con  el  fin  de  contar  y  clasificar las clases y métodos dentro del código. 
+Además, verifica  si  el  código sigue el paradigma de Programación Orientada a 
+Objetos (POO) de manera estricta. 
+ 
+El análisis incluye:
+- Contar las clases y los métodos presentes en el archivo.
+- Verificar la presencia de  métodos fuera  de las clases o código ejecutable
+  fuera de las mismas, lo que indicaría que el archivo no sigue completamente 
+  el paradigma POO.
+- Contar las líneas físicas (excluyendo comentarios y líneas en blanco) y las 
+  líneas lógicas  (incluyendo  bloques  lógicos como  clases  y  métodos).
+  
+El módulo utiliza una clase `AnalizadorDeCodigo` que hereda del modulo 
+`Analizador_De_Codigo` para delegar parte del análisis del código, como el 
+conteo de las líneas físicas y lógicas.
+
+Funciones principales:
+- `AnalizadorEstructural`:  Clase  que  gestiona  el  análisis de archivos Python.
+- `analizar_clases_y_metodos`: Analiza y cuenta las clases y métodos en el archivo.
+- `obtener_resultados`:  Devuelve u n diccionario  con los resultados del análisis.
+- `verificar_poo`: Verifica si el código cumple con el paradigma POO.
+- `informe`: Genera un informe detallado sobre el análisis del archivo.
+"""
 import sys
 import time
 from Analizador_De_Codigo import AnalizadorDeCodigo  

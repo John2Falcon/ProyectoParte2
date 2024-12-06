@@ -1,3 +1,16 @@
+"""
+Programa: Contador de clases y métodos
+Autor: Equipo 6
+Fecha: 20 de noviembre del 2024
+Descripción:
+    Este programa permite al usuario analizar archivos Python POO ubicados en 
+    la carpeta analizador para contar lineas de código físicas y logicas, asi 
+    como el número de clases y métodos de esta. 
+    Utiliza una clase llamada AnalizadorEstructural para realizar el análisis
+    detallado de cada archivo Python y proporciona un informe con el conteo de 
+    las físicas, logicas, el número de clases y métodos de estas. 
+"""
+
 import os
 from Analizador_De_Clases_Y_metodos import AnalizadorEstructural
 
