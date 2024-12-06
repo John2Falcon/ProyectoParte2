@@ -148,8 +148,8 @@ class AnalizadorEstructural(AnalizadorDeCodigo):
             print("El programa se cerrara despues de este mensaje")
             print("Causas detectadas:")
             if self.metodos_fuera_clases:
-                print(f"  - Métodos fuera de clases: \
-                      {', '.join(self.metodos_fuera_clases)}")
+                print(f"  - Métodos fuera de clases: { \
+                    ', '.join(self.metodos_fuera_clases)}")
             if self.codigo_fuera_clases:
                 print("  - Código ejecutable fuera de clases:")
                 for linea in self.codigo_fuera_clases:
